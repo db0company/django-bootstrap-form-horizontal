@@ -1,11 +1,13 @@
 import datetime
 from django import template
-from django.forms.fields import BooleanField, DateTimeField
+from django.forms.fields import NullBooleanField, BooleanField, DateTimeField
 register = template.Library()
 
 @register.filter
 def is_boolean(field):
-    if isinstance(field.field, BooleanField):
+    if isinstance(field.field, NullBooleanField):
+        return False
+    elif isinstance(field.field, BooleanField):
         return True
     return False
 
